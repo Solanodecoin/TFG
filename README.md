@@ -44,42 +44,42 @@ Cockpit Web Console.
 
 # 6. Esquema E/R de la base de datos:
 
-     CREATE TABLE Usuario
-(
-  idUsuario INT NOT NULL,
-  Nombre INT NOT NULL,
-  Contraseña INT NOT NULL,
-  Email INT NOT NULL,
-  Rol INT NOT NULL,
-  Saldo INT NOT NULL,
-  PRIMARY KEY (idUsuario)
-);
-
-CREATE TABLE Instancia
-(
-  idInstancia INT NOT NULL,
-  PrecioInicial INT NOT NULL,
-  Tipo INT NOT NULL,
-  Tamaño INT NOT NULL,
-  idUsuario INT NOT NULL,
-  PRIMARY KEY (idInstancia),
-  FOREIGN KEY (idUsuario) REFERENCES Usuario(idUsuario)
-);
-
-CREATE TABLE Pago
-(
-  idPago INT NOT NULL,
-  Cantidad INT NOT NULL,
-  idUsuario INT NOT NULL,
-  PRIMARY KEY (idPago),
-  FOREIGN KEY (idUsuario) REFERENCES Usuario(idUsuario)
-);
-
-CREATE TABLE Disco
-(
-  idDisco INT NOT NULL,
-  Almacenamiento INT NOT NULL,
-  idInstancia INT NOT NULL,
-  PRIMARY KEY (idDisco),
-  FOREIGN KEY (idInstancia) REFERENCES Instancia(idInstancia)
-);    
+    CREATE TABLE Usuario
+    (
+      idUsuario INT NOT NULL,
+      Nombre INT NOT NULL,
+      Contraseña INT NOT NULL,
+      Email INT NOT NULL,
+      Rol INT NOT NULL,
+      Saldo INT NOT NULL,
+      PRIMARY KEY (idUsuario)
+    );
+    
+    CREATE TABLE Instancia
+    (
+      idInstancia INT NOT NULL,
+      PrecioInicial INT NOT NULL,
+      Tipo INT NOT NULL,
+      Tamaño INT NOT NULL,
+      idUsuario INT NOT NULL,
+      PRIMARY KEY (idInstancia),
+      FOREIGN KEY (idUsuario) REFERENCES Usuario(idUsuario)
+    );
+    
+    CREATE TABLE Pago
+    (
+      idPago INT NOT NULL,
+      Cantidad INT NOT NULL,
+      idUsuario INT NOT NULL,
+      PRIMARY KEY (idPago),
+      FOREIGN KEY (idUsuario) REFERENCES Usuario(idUsuario)
+    );
+    
+    CREATE TABLE Disco
+    (
+      idDisco INT NOT NULL,
+      Almacenamiento INT NOT NULL,
+      idInstancia INT NOT NULL,
+      PRIMARY KEY (idDisco),
+      FOREIGN KEY (idInstancia) REFERENCES Instancia(idInstancia)
+    );
