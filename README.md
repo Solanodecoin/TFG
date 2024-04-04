@@ -41,3 +41,9 @@ DHCP, DNS y Servidor de correo.
 Apache, PHP, JavaScript, HTML, CSS.
 
 Cockpit Web Console.
+
+# 6. Esquema E/R de la base de datos:
+
+![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/2a79bb4e-5b7f-4486-93d3-c76b3062a0f9/21a85592-71b1-4775-8188-ad9e609ff78f/image.png)
+
+![image (1).png](https://prod-files-secure.s3.us-west-2.amazonaws.com/2a79bb4e-5b7f-4486-93d3-c76b3062a0f9/49b20986-ba3e-41e6-b09b-ea56be76fa9b/image_(1).png)
