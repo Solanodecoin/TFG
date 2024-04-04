@@ -44,7 +44,7 @@ Cockpit Web Console.
 
 # 6. Esquema E/R de la base de datos:
 
-'' CREATE TABLE Usuario
+     CREATE TABLE Usuario
 (
   idUsuario INT NOT NULL,
   Nombre INT NOT NULL,
@@ -82,4 +82,4 @@ CREATE TABLE Disco
   idInstancia INT NOT NULL,
   PRIMARY KEY (idDisco),
   FOREIGN KEY (idInstancia) REFERENCES Instancia(idInstancia)
-);''
+);    
