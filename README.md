@@ -44,6 +44,11 @@ Cockpit Web Console.
 
 # 6. Esquema E/R de la base de datos:
 
+
+[![image-2.png](https://i.postimg.cc/2jH4Dcbv/image-2.png)](https://postimg.cc/NLHy8xxf)
+
+[![image.png](https://i.postimg.cc/PJ6bVKZW/image.png)](https://postimg.cc/5QCF6Bsy)
+
     CREATE TABLE Usuario
     (
       idUsuario INT NOT NULL,
