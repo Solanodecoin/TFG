@@ -28,6 +28,8 @@ Realizaremos un servicio de virtualización en la nube , para lanzar instancias 
 
 `Establecer una facturación por tiempo de uso`
 
+`Se realizara un plan de seguridad`
+
 # 5. Tecnologías utilizadas:
 
      Ubuntu Desktop 20.04.
