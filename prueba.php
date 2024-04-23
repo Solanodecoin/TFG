@@ -24,6 +24,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <title>Crear instancia Docker</title>
 </head>
 <body>
+
+<div class="dashboard">
+    <div class="sidebar">
+            <h2>Menú</h2>
+            
+            <ul>
+                <li><a href="#">Inicio</a></li>
+                <li><a href="#">Perfil</a></li>
+                <li><a href="#">Configuración</a></li>
+                <li><a href="#">Cerrar sesión</a></li>
+            </ul>
+        </div>
+        <div class="main-content">
+            <h2>Bienvenido al Dashboard</h2>
+            <p>¡Aquí puedes encontrar todas las herramientas que necesitas!</p>
+        </div>
+    </div>
+
+
+
+
     <h1>Crear instancia Docker</h1>
     <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
         <label for="container_name">Nombre del contenedor:</label>

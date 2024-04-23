@@ -1,0 +1,108 @@
+/* Estilos para el dashboard */
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.dashboard {
+    display: flex;
+    height: 100vh;
+}
+
+.sidebar {
+    width: 250px;
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+}
+
+.sidebar h2 {
+    margin-top: 0;
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    margin-bottom: 10px;
+}
+
+.sidebar ul li a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.main-content {
+    flex: 1;
+    padding: 20px;
+}
+/* Animación mejorada para el menú */
+.sidebar ul li a {
+    color: #fff;
+    text-decoration: none;
+    position: relative;
+    transition: color 0.3s, background-color 0.3s, box-shadow 0.3s;
+}
+
+.sidebar ul li a::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -10px;
+    width: calc(100% + 20px); /* Se expande 10px a cada lado */
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.1);
+    z-index: -1;
+    transition: opacity 0.3s, transform 0.3s;
+    border-radius: 5px;
+    transform-origin: left center;
+    transform: scaleX(0); /* Comienza sin anchura */
+}
+
+.sidebar ul li a:hover::before {
+    opacity: 1;
+    transform: scaleX(1); /* Se expande al tamaño del menú */
+}
+
+.sidebar ul li a:hover {
+    color: #ffcc00;
+    background-color: #444;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+/* Estilos para el dashboard */
+
+/* Resto del CSS... */
+
+.perfil {
+    position: fixed; /* Posicionamiento fijo */
+    top: 20px; /* Distancia desde la parte superior */
+    right: 20px; /* Distancia desde el borde derecho */
+    display: flex; /* Utiliza un modelo de caja flexible */
+    align-items: center; /* Centra verticalmente los elementos */
+    background-color: rgba(0, 0, 0, 0.2); /* Transparencia del fondo */
+    padding: 5px;
+    border: 1px solid #ccc; /* Borde gris */
+    border-radius: 5px; /* Esquinas redondeadas */
+}
+
+.perfil img {
+    width: 50px; /* Ajusta el tamaño de la imagen según sea necesario */
+    height: 50px; /* Ajusta el tamaño de la imagen según sea necesario */
+    border-radius: 50%; /* Para hacer la imagen redonda */
+    margin-right: 0px; /* Espacio entre la imagen y el nombre */
+    margin-top: 0px;
+}
+
+.perfil h2 {
+    margin: 0px; /* Elimina el margen por defecto */
+    font-size: 14px; /* Tamaño de la fuente */
+    white-space: nowrap; /* Evita que el texto se divida en varias líneas */
+    text-align: center;
+    
+    margin-right: 70px;
+    margin-bottom: 30px;
+}
