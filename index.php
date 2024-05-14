@@ -141,7 +141,7 @@ if(isset($_SESSION['usuario'])){ ?>
         <label for="os_select">Sistema Operativo:</label>
         <select id="sistema" name="sistema">
             <option value="Ubuntu">Ubuntu</option>
-            <option value="Debian">Debian</option>
+            <option value="Windows">Windows</option>
         </select>
         
         <label for="tamaño">Tamaño:</label>
@@ -345,6 +345,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
  
         preg_match('/Value: (\d+\.\d+\.\d+\.\d+)/', $ip_output, $matches);
         $ip = isset($matches[1]) ? $matches[1] : '';
+
+
+
 
         $url = "http://$ip:9090";
 
