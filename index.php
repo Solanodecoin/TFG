@@ -5,8 +5,6 @@ if(isset($_SESSION['usuario'])){ ?>
 <!DOCTYPE html>
 
 
-
-
 <html lang="en">
 <head>
   <title>Bootstrap Example</title>
@@ -16,10 +14,55 @@ if(isset($_SESSION['usuario'])){ ?>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <style>
-    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+
+
+
+
+.vm-info {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.vm-info p {
+    margin: 0;
+}
+
+.vm-actions {
+    margin-top: 5px;
+}
+
+.action-btn {
+    display: inline-block;
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 3px;
+    margin-right: 5px;
+}
+
+.action-btn:hover {
+    background-color: #0056b3;
+}
+
+.start {
+    background-color: #28a745;
+}
+
+.stop {
+    background-color: #dc3545;
+}
+
+.ip {
+    background-color: #ffc107;
+}
+
+
     .row.content {height: 550px}
     
-    /* Set gray background color and 100% height */
+
     .sidenav {
       background-color: #f1f1f1;
       height: 100%;
@@ -27,7 +70,7 @@ if(isset($_SESSION['usuario'])){ ?>
       
     }
         
-    /* On small screens, set height to 'auto' for the grid */
+
     @media screen and (max-width: 767px) {
       .row.content {height: auto;} 
     }
@@ -97,7 +140,7 @@ if(isset($_SESSION['usuario'])){ ?>
         
         <label for="os_select">Sistema Operativo:</label>
         <select id="sistema" name="sistema">
-            <option value="ubuntu">ubuntu</option>
+            <option value="Ubuntu">Ubuntu</option>
             <option value="Debian">Debian</option>
         </select>
         
@@ -188,18 +231,6 @@ if(isset($_SESSION['usuario'])){ ?>
 
 
 
-// Verifica si se ha hecho clic en el enlace para iniciar la VM
-
-
-
-
-
-
-
-
-
-
-
 
 $usuario = $_SESSION['usuario']  ;
 $sistema = $_POST['sistema'];
@@ -217,15 +248,10 @@ $stmt->close();
 echo "Usuario : ". $usuario . "  Su id es:  ". $idUsuario . "  ";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Capturar el nombre de la maquina
+
     $vmname = $_POST['vmname'];
     
-    // comando para realizar la importacion de la maquina
-    
-    
 
-
-    // Verificar si el contenedor se creó correctamente
  
 
         $statement = $conn->stmt_init();
@@ -274,25 +300,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $statement->execute();
     $resultado = $statement->get_result();
 
-    echo '<div>'; // Apertura del contenedor
+
 
     while ($registro = $resultado->fetch_assoc()) {
         $nombreVM = $registro['nombre'];
         $tamaño = $registro['Tamaño'];
         
-        echo '<p>Nombre: ' . $nombreVM . ', Tamaño: ' . $tamaño . '</p><a href="index.php?accion=start_vm&vmname=' . $nombreVM . '">Start VM</a>' . '</p><a href="index.php?accion=stop_vm&vmname=' . $nombreVM . '">Stop VM</a>' . '</p><a href="index.php?accion=ip_vm&vmname=' . $nombreVM . '">IP VM</a>' . '<br>';
-
+        echo '
+        <div class="vm-info">
+    <p>Nombre:'. $nombreVM . ' , Tamaño: ' . $tamaño . ' </p>
+    <div class="vm-actions">
+        <a href="index.php?accion=start_vm&vmname=' .$nombreVM .'" class="action-btn start">Start VM</a>
+        <a href="index.php?accion=stop_vm&vmname=' . $nombreVM .'" class="action-btn stop">Stop VM</a>
+        <a href="index.php?accion=ip_vm&vmname=' .$nombreVM .'" class="action-btn ip">IP VM</a>
+    </div>
+</div>
+';
     }
 
 
      if (isset($_GET['accion']) && $_GET['accion'] === 'start_vm' ) {
-      // Obtiene el ID de la instancia
+
       $vmname = $_GET['vmname'];
       echo $vmname;
-      // Aquí debes sustituir "comando_para_iniciar_VM" por el comando real que necesites ejecutar para iniciar la VM
+     
       shell_exec("sudo -u pablo VBoxManage startvm \"$vmname\" --type headless");
       
-      // Mensaje de confirmación
+
       echo "La VM con ID: $vmname ha sido iniciada.";
 
       
@@ -302,20 +336,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   
 
         if (isset($_GET['accion']) && $_GET['accion'] === 'ip_vm' ) {
-          // Obtiene el ID de la instancia
+  
 
           $vmname = $_GET['vmname'];
           $ip_command = "sudo -u pablo VBoxManage guestproperty get \"$vmname\" \"/VirtualBox/GuestInfo/Net/0/V4/IP\"";
           $ip_output = shell_exec($ip_command);
 
-        // Aplicar expresión regular para extraer solo la IP
+ 
         preg_match('/Value: (\d+\.\d+\.\d+\.\d+)/', $ip_output, $matches);
         $ip = isset($matches[1]) ? $matches[1] : '';
 
-        // Construir la URL con la variable $ip
         $url = "http://$ip:9090";
 
-        // Mostrar el enlace si se pudo obtener la IP
         if (!empty($ip)) {
             echo "<p>La dirección IP es: <a href=\"$url\" target=\"_blank\">$ip</a></p>";
         } else {
@@ -326,14 +358,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       }
   
       if (isset($_GET['accion']) && $_GET['accion'] === 'stop_vm' ) {
-        // Obtiene el ID de la instancia
+
         $vmname = $_GET['vmname'];
         echo $vmname;
-        // Aquí debes sustituir "comando_para_iniciar_VM" por el comando real que necesites ejecutar para iniciar la VM
-        shell_exec("sudo -u pablo VBoxManage startvm \"$vmname\" --type headless");
+       
+        shell_exec("sudo -u pablo VBoxManage controlvm \"$vmname\"poweroff");
         
-        // Mensaje de confirmación
-        echo "La VM con ID: $vmname ha sido iniciada.";
+
+        echo "La VM con ID: $vmname ha sido parada.";
   
         
     }
@@ -342,16 +374,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
 
-    echo '</div>'; // Cierre del contenedor
 ?>
 
     
     <a href="login.php">Login</a>
     <a href="prueba.php">prueba</a>
     <a href="register.php">register</a>
-
-
-
 
 
 
