@@ -19,7 +19,7 @@ body {
 
 h1.gradient-text {
     background: linear-gradient(to right, #4CAF50, #333);
-    -webkit-background-clip: text;
+    
     -webkit-text-fill-color: transparent;
     font-size: 24px;
     margin-bottom: 20px;

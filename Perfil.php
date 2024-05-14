@@ -111,8 +111,8 @@ if(isset($_SESSION['usuario'])){
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Inicio</a></li>
-        <li><a href="Perfil.php">Perfil</a></li>
+        <li ><a href="#">Inicio</a></li>
+        <li class="active"><a href="Perfil.php">Perfil</a></li>
         <li><a href="vms.php">Mis VM`S</a></li>
         <li><a href="#">Geo</a></li>
         <li><a href="cerrarsesion.php">Cerrar Sesión</a></li> 
@@ -126,8 +126,8 @@ if(isset($_SESSION['usuario'])){
     <div class="col-sm-3 sidenav hidden-xs">
       <h2>Logo</h2>
       <ul class="nav nav-pills nav-stacked">
-        <li class="active"><a href="index.html">Inicio</a></li>
-        <li><a href="Perfil.php">Perfil</a></li>
+        <li ><a href="index.php">Inicio</a></li>
+        <li class="active"><a href="Perfil.php">Perfil</a></li>
         <li><a href="vms.php">Mis VM`S</a></li>
         <li><a href="#section3">Geo</a></li><br>
         <li><a href="cerrarsesion.php">Cerrar Sesión</a></li> 
@@ -144,6 +144,7 @@ if(isset($_SESSION['usuario'])){
         <h4>Dashboard</h4>
         <h1>Leonardo Dashboard</h1>
         <?php echo 'Bienvenido: ' . $usuario;?>
+        <h1>Aqui podras ver todo lo relacionado con tu perfil</h1>
 
 
     
