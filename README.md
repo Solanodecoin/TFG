@@ -34,13 +34,13 @@ Realizaremos un servicio de virtualización en la nube , para lanzar instancias 
 
      Ubuntu Desktop 20.04.
 
-VirtualBox / Docker. —> (Esta por determinar)
+VirtualBox
 
 Python.
 
 DHCP, DNS y Servidor de correo.
 
-Apache, PHP, JavaScript, HTML, CSS.
+Apache, PHP, HTML, CSS.
 
 Cockpit Web Console.
 
