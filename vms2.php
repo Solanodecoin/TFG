@@ -13,22 +13,20 @@ if(isset($_SESSION['usuario'])){
     $stmt->close();
     ?>
 
-<span style="font-family: verdana, geneva, sans-serif;"><!DOCTYPE html>
+<!DOCTYPE html>
+
+
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Dashboard | Leonardo</title>
-  <link rel="stylesheet" href="estilo.css" />
-  <!-- Font Awesome Cdn Link -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
-</head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <style>
 
-<body>
-<style>
 
-body{
-  background: lightgrey;
-}
 
 
 .vm-info {
@@ -98,39 +96,54 @@ body{
             text-decoration: none;
         }
   </style>
+</head>
+<body>
 
-  <div class="container">
-    <nav>
-      <ul>
-        <li><a href="#" class="logo">
-          <img src="/img/usuario-de-perfil.png" alt="">
-          <span class="nav-item"><?php echo $usuario?></span>
-        </a></li>
-        <li  ><a href="index.php">
-          <i class="fas fa-home" ></i>
-          <span class="nav-item">Inicio</span>
-        </a></li>
-        <li><a href="">
-          <i class="fas fa-user"></i>
-          <span class="nav-item">Perfil</span>
-        </a></li>
-        <li id="on"><a href="vms.php">
-          <i class="fas fa-desktop"></i>
-          <span class="nav-item">Mis SV</span>
-        </a></li>
-        <li><a href="">
-          <i class="fas fa-question-circle"></i>
-          <span class="nav-item">Soporte</span>
-        </a></li>
-        <li><a href="cerrarsesion.php" class="logout">
-          <i class="fas fa-sign-out-alt"></i>
-          <span class="nav-item">Salir</span>
-        </a></li>
+<nav class="navbar navbar-inverse visible-xs">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="#">Logo</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li ><a href="index.php">inicio</a></li>
+        <li><a href="Perfil.php">Perfil</a></li>
+        <li class="active"><a href="vms.php">Mis VM`S</a></li>
+        <li><a href="#">Geo</a></li>
+        <li><a href="cerrarsesion.php">Cerrar Sesión</a></li> 
       </ul>
-    </nav>
+    </div>
+  </div>
+</nav>
 
-    <section class="main">
-        <h1>Crear Nuevo SV</h1> </BR>
+<div class="container-fluid">
+  <div class="row content">
+    <div class="col-sm-3 sidenav hidden-xs">
+      <h2>Logo</h2>
+      <ul class="nav nav-pills nav-stacked">
+        <li><a href="index.php">Inicio</a></li>
+        <li><a href="Perfil.php">Perfil</a></li>
+        <li class="active"><a href="vms.php">Mis VM`S</a></li>
+        <li><a href="#section3">Geo</a></li><br>
+        <li><a href="cerrarsesion.php">Cerrar Sesión</a></li> 
+      </ul>
+    </div>
+    <br>
+
+
+    <div class="col-sm-9">
+      
+      <div class="well">
+
+
+        <h4>Dashboard</h4>
+        <h1>Crear Maquina Virtual</h1>
+
 
     <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
         <label for="vmname">Nombre de la Maquina</label>
@@ -151,9 +164,15 @@ body{
         
         <input type="submit" value="Crear instancia">
     </form>
-        <br>
 
-      <section class="main-course">
+
+        
+
+      </div>
+      <div class="col-sm-9">
+      
+      <div class="well">
+
       <?php 
             
             
@@ -170,7 +189,7 @@ body{
                 
                 echo '
                 <div class="vm-info">
-            <p>Nombre: '. $nombreVM . ' | Tamaño: ' . $tamaño . ' </p>
+            <p>Nombre:'. $nombreVM . ' , Tamaño: ' . $tamaño . ' </p>
             <div class="vm-actions">
                 <a href="vms.php?accion=start_vm&vmname=' .$nombreVM .'" class="action-btn start">Start VM</a>
                 <a href="vms.php?accion=stop_vm&vmname=' . $nombreVM .'" class="action-btn stop">Stop VM</a>
@@ -188,13 +207,24 @@ body{
 
             ?>
         
-            
-      </section>
-    </section>
-  </div>
-</body>
-</html></span>
+     
 
+        
+
+      </div>
+      
+     
+      
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+</body>
+</html>
 
 <?php
 
@@ -265,8 +295,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       shell_exec("sudo -u pablo VBoxManage startvm \"$vmname\" --type headless");
       
 
-      echo "";
-      echo "<script type='text/javascript'>alert('La VM con ID: $vmname ha sido iniciada.');</script>";
+      echo "La VM con ID: $vmname ha sido iniciada.";
+
       
   }
   
@@ -340,7 +370,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 ?>
 
-<?php
+    
+    <a href="login.php">Login</a>
+    <a href="prueba.php">prueba</a>
+    <a href="register.php">register</a>
+
+
+
+
+
+<?php 
 
 }else{
         print 'No has iniciado sesion';
