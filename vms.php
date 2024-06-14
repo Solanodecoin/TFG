@@ -1,7 +1,7 @@
 <?php
 session_start();
 if(isset($_SESSION['usuario'])){ 
-    $usuario = $_SESSION['usuario']  ;
+    $usuario = $_SESSION['usuario'];
     $sistema = $_POST['sistema'];
     $tamaño = $_POST['tamaño'];
     $conn = new mysqli("localhost", "pablo", "root", "leonardo");
@@ -11,6 +11,15 @@ if(isset($_SESSION['usuario'])){
     $stmt->bind_result($idUsuario);
     $stmt->fetch();
     $stmt->close();
+
+    $stmt = $conn->prepare("SELECT Rol FROM Usuario WHERE idUsuario = ?");
+    $stmt->bind_param("s", $idUsuario);
+    $stmt->execute();
+    $stmt->bind_result($rol);
+    $stmt->fetch();
+    $stmt->close();
+
+    
     ?>
 
 <span style="font-family: verdana, geneva, sans-serif;"><!DOCTYPE html>
@@ -110,15 +119,11 @@ body{
           <i class="fas fa-home" ></i>
           <span class="nav-item">Inicio</span>
         </a></li>
-        <li><a href="">
-          <i class="fas fa-user"></i>
-          <span class="nav-item">Perfil</span>
-        </a></li>
         <li id="on"><a href="vms.php">
           <i class="fas fa-desktop"></i>
           <span class="nav-item">Mis SV</span>
         </a></li>
-        <li><a href="">
+        <li><a href="soporte.php">
           <i class="fas fa-question-circle"></i>
           <span class="nav-item">Soporte</span>
         </a></li>
@@ -126,6 +131,12 @@ body{
           <i class="fas fa-sign-out-alt"></i>
           <span class="nav-item">Salir</span>
         </a></li>
+        <?php if ($rol == "admin") { ?>
+        <li><a href="ticket.php">
+          <i class="fas fa-question-circle"></i>
+          <span class="nav-item">Panel Soporte</span>
+        </a></li>
+        <?php } ?>
       </ul>
     </nav>
 
@@ -175,6 +186,7 @@ body{
                 <a href="vms.php?accion=start_vm&vmname=' .$nombreVM .'" class="action-btn start">Start VM</a>
                 <a href="vms.php?accion=stop_vm&vmname=' . $nombreVM .'" class="action-btn stop">Stop VM</a>
                 <a href="vms.php?accion=ip_vm&vmname=' .$nombreVM .'" class="action-btn ip">IP VM</a>
+                <a href="vms.php?accion=delete_vm&vmname=' .$nombreVM .'" class="action-btn stop">DELETE</a>
             </div>
         </div>
         ';
@@ -205,7 +217,7 @@ body{
 
 
 
-echo "Usuario : ". $usuario . "  Su id es:  ". $idUsuario . "  ";
+
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -221,7 +233,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $resultado = $statement->get_result();
         
         if ($resultado->num_rows > 0) {
-          echo "Ya existe";
+          echo '<script type="text/javascript">';
+          echo 'alert("La maquina ' .$vmname . ' ya existe");';
+          echo '</script>';
         }else{
 
         
@@ -236,7 +250,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
           if($resultado != ""){
 
-            echo "Maquina creada correctamente";
+            echo '<script type="text/javascript">';
+            echo 'alert("La maquina ' .$vmname . ' ha sido creada correctamente");';
+            echo '</script>';
             $conn = new mysqli("localhost", "pablo", "root", "leonardo");
             $statement = $conn->prepare('INSERT INTO Instancia (nombre, Tipo, Tamaño, idUsuario) VALUES (?, ?, ?, ?)');
             $statement->bind_param('ssss', $vmname, $sistema, $tamaño, $idUsuario);
@@ -244,7 +260,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $resultado = $statement->get_result();
             
           } else{ 
-          echo "Hay problemas";
+            echo '<script type="text/javascript">';
+            echo 'alert("Hay algun problema, porfavor si no se soluciona abra un Ticket.");';
+            echo '</script>';
         }
 
         }
@@ -292,17 +310,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
           $tipo =$resultado->fetch_assoc();
 
+
+          
           
           
           
           if ($tipo['Tipo'] == "Windows"){
 
-            echo 'La ip de su maquina windows es: ' . $ip .' Copiela en su cliente RDP <br>';
+            echo '<script type="text/javascript">';
+            echo 'alert("La IP de su máquina es:  ' . $ip . '");';
+            echo '</script>';;
 
           }else{
             $url = "http://$ip:9090";
 
-            echo 'La ip de su maquina ' .$tipo['Tipo'] .  ' Pincha en la ip para acceder a ella ' .'<a href='.$url.'>' .$url .'</a> <br>' ;
+           
+            echo '<script type="text/javascript">';
+            echo 'alert("La IP de su máquina es: ' . $tipo['Tipo'] . '. Pincha en el siguiente enlace para acceder a ella: ' . $url . '");';
+            echo '</script>';
+
           }
  
         
@@ -315,7 +341,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         
             
         } else {
-            echo "<p>No se pudo obtener la IP.</p>";
+          echo '<script type="text/javascript">';
+          echo 'alert("No se pudo obtener la ip de la maquina: ' .$vmname . ', contacte con soporte.");';
+          echo '</script>';
         };
     
           
@@ -329,11 +357,35 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         shell_exec("sudo -u pablo VBoxManage controlvm \"$vmname\"poweroff");
         
 
-        echo "La VM con ID: $vmname ha sido parada.";
+        echo '<script type="text/javascript">';
+        echo 'alert("La maquina ' .$vmname . ' ha sido parada correctamente");';
+        echo '</script>';
   
         
     }
-    
+    if (isset($_GET['accion']) && $_GET['accion'] === 'delete_vm' ){
+
+      $vmname = $_GET['vmname'];
+      $conn = new mysqli("localhost", "pablo", "root", "leonardo");
+      $statement = $conn->prepare('DELETE  FROM Instancia WHERE nombre = ?');
+      $statement->bind_param('s', $vmname);
+      $statement->execute();
+      $resultado = $statement->get_result();
+      
+      $comando_borrar_vm = "sudo -u pablo VBoxManage unregistervm \"$vmname\" --delete";
+
+
+      $resultado = shell_exec($comando_borrar_vm);
+
+
+      $comando_buscar_vm = "VBoxManage list vms | grep '\"$vmname\"'";
+      $resultado_busqueda = shell_exec($comando_buscar_vm);
+
+      echo '<script type="text/javascript">';
+      echo 'alert("La maquina ' .$vmname . ' ha sido borrada correctamente");';
+      echo '</script>';
+
+    }
 
 
 

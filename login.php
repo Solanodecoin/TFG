@@ -1,7 +1,14 @@
 <?php
 session_start();
 
+   
+
 if(isset($_POST['usuario']) && isset($_POST['password'])) {
+
+
+
+
+  
     $usuario = $_POST['usuario'];
     $password = $_POST['password'];
 
@@ -22,7 +29,9 @@ if(isset($_POST['usuario']) && isset($_POST['password'])) {
         echo "Te has conectado con : ". $usuario;
         exit();
     } else {
-        echo "Credenciales incorrectas";
+        echo '<script type="text/javascript">';
+        echo 'alert("Usuario Incorrecto");';
+        echo '</script>';
     }
 
     $statement->close();
@@ -36,7 +45,7 @@ if(isset($_POST['usuario']) && isset($_POST['password'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Iniciar Sesión</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="estiloslogin.css">
 </head>
 <body>
     <div class="login-container">

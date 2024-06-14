@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro</title>
-    <link rel="stylesheet" href="style.css"> </head>
+    <link rel="stylesheet" href="estiloslogin.css">
 <body>
     <div class="login-container"> <h1 class="gradient-text">Registro</h1> <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST">
 
@@ -64,30 +64,15 @@ if (isset($_POST["usuario"]) && isset($_POST["password"]) && isset($_POST["passw
         $statement->close();
         $conn->close();
     } else {
-        echo "Las contraseñas no coinciden";
+        echo '<script type="text/javascript">';
+echo 'alert("Las Contraseñas no coinciden");';
+echo '</script>';
     }
 } else {
-    echo "Todos los campos son requeridos";
+    
 }
 
 ?>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
