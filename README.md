@@ -52,7 +52,7 @@ Cockpit Web Console.
 # 6. Esquema E/R de la base de datos:
 
 
-[![image-2.png](https://i.postimg.cc/2jH4Dcbv/image-2.png)](https://postimg.cc/NLHy8xxf)
+[![RD.png](https://i.postimg.cc/8zbw2Tvz/RD.png)](https://postimg.cc/87jhWQw2)
 
 [![image.png](https://i.postimg.cc/PJ6bVKZW/image.png)](https://postimg.cc/5QCF6Bsy)
 
